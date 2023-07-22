@@ -1,0 +1,1 @@
+docker build -t pico-rust-dev-env:master -f Dockerfile ../.
