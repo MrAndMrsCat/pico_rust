@@ -8,8 +8,16 @@
             "name": "pico-embassy",
             "request": "launch",
             "type": "cortex-debug",
-            "cwd": "${workspaceRoot}",
-            "executable": "${workspaceFolder}/target/thumbv6m-none-eabi/debug/rp2040-project-template",
+
+            // "cwd": "${workspaceRoot}/rp2040-template",
+            // "executable": "${workspaceFolder}/rp2040-template/target/thumbv6m-none-eabi/debug/rp2040-project-template",
+
+            
+            "cwd": "${workspaceRoot}/template",
+            "executable": "${workspaceFolder}/template/target/thumbv6m-none-eabi/debug/pico-rust",
+
+
+
             "preLaunchTask": "Build binary",
             "servertype": "external",
             // This may need to be gdb-multiarch depending on your system (i.e. Linux vs Mac)
@@ -19,12 +27,19 @@
             // If you have the Pico SDK installed, allows the
             // display of the RP2040 CPU registers in VS Code
             "svdFile": "${env:PICO_SDK_PATH}/src/rp2040/hardware_regs/rp2040.svd",
-            //"runToEntryPoint": "main",
+            "runToEntryPoint": "main",
             "preLaunchCommands": [
                 "monitor init",
                 "monitor reset init",
                 "monitor halt",
             ],
+
+
+            // just trying to get debugger working, remove this:
+            "showDevDebugOutput" : "raw",
+
+
+            
             // Work around for stopping at main on restart
             "postRestartCommands": [
                 "break main",

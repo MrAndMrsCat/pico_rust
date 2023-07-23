@@ -5,7 +5,8 @@
             "label": "Cargo build",
             "type": "shell",
             "options": {
-                "cwd": "${workspaceRoot}/rp2040-template",
+                // "cwd": "${workspaceRoot}/rp2040-template",
+                "cwd": "${workspaceRoot}/template",
             },
             "command": "cargo",
             "args": [
@@ -20,14 +21,18 @@
             "label": "Build binary",
             "type": "shell",
             "options": {
-                "cwd": "${workspaceRoot}/rp2040-template",
+                // "cwd": "${workspaceRoot}/rp2040-template",
+                "cwd": "${workspaceRoot}/template",
             },
             "command": "arm-none-eabi-objcopy",
             "args": [
                 "--output-target",
                 "binary",
-                "./target/thumbv6m-none-eabi/debug/rp2040-project-template",
-                "./target/thumbv6m-none-eabi/debug/rp2040-project-template.bin"
+                // "./target/thumbv6m-none-eabi/debug/rp2040-project-template",
+                // "./target/thumbv6m-none-eabi/debug/rp2040-project-template.bin"
+
+                "./target/thumbv6m-none-eabi/debug/pico-rust",
+                "./target/thumbv6m-none-eabi/debug/pico-rust.bin"
             ],
             "problemMatcher": [
                 "$rustc"

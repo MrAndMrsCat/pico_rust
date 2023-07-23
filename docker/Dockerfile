@@ -26,11 +26,30 @@ RUN echo 'ATTRS{idVendor}=="2e8a", ATTRS{idProduct}=="000c", MODE:="0666"' > /et
 # [rust]
 RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
 ENV PATH="/root/.cargo/bin:${PATH}"
-RUN rustup target install thumbv6m-none-eabi
-RUN cargo install flip-link
-RUN cargo install probe-run --locked
+
+# use nightly rustc as embedded-hal-async v0.2.0-alpha.2 is not in the stable channel yet..
+RUN rustup install nightly && rustup default nightly
+
+RUN rustup target install thumbv6m-none-eabi \
+    && cargo install flip-link \
+    && cargo install probe-run
 
 
+# [arm GNU toolchain]
+RUN cd /tmp \
+    && curl -Lo gcc-arm-none-eabi.tar.xz "https://developer.arm.com/-/media/Files/downloads/gnu-rm/10.3-2021.10/gcc-arm-none-eabi-10.3-2021.10-x86_64-linux.tar.bz2" \
+    && mkdir /usr/share/gcc-arm-none-eabi \
+    && tar xf gcc-arm-none-eabi.tar.xz --strip-components=1 -C /usr/share/gcc-arm-none-eabi \
+    && rm -rf gcc-arm-none-eabi.tar.xz
 
-# [project]
-# ADD ./docker/connect.sh .
+RUN ln -s /usr/share/gcc-arm-none-eabi/bin/arm-none-eabi-gcc /usr/bin/arm-none-eabi-gcc \
+    && ln -s /usr/share/gcc-arm-none-eabi/bin/arm-none-eabi-g++ /usr/bin/arm-none-eabi-g++ \
+    && ln -s /usr/share/gcc-arm-none-eabi/bin/arm-none-eabi-gdb /usr/bin/arm-none-eabi-gdb \
+    && ln -s /usr/share/gcc-arm-none-eabi/bin/arm-none-eabi-size /usr/bin/arm-none-eabi-size \
+    && ln -s /usr/share/gcc-arm-none-eabi/bin/arm-none-eabi-objcopy /usr/bin/arm-none-eabi-objcopy \
+    && ln -s /usr/share/gcc-arm-none-eabi/bin/arm-none-eabi-nm /usr/bin/arm-none-eabi-nm
+
+# RUN apt-get install -y --no-install-recommends binutils-multiarch \
+#     && cd /usr/bin \
+#     && ln -s /usr/bin/objdump objdump-multiarch \
+#     && ln -s /usr/bin/nm nm-multiarch 
