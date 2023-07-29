@@ -1,18 +1,22 @@
 # PicoRust
 
-Visual Studio Code [developement container](https://code.visualstudio.com/docs/devcontainers/containers) for the Raspberry Pi Pico using Rust [Embassy](https://github.com/embassy-rs/embassy) framework.
+Visual Studio Code [developement container](https://code.visualstudio.com/docs/devcontainers/containers) for the Raspberry Pi Pico using Rust [Embassy](https://github.com/embassy-rs/embassy) framework, with flashing / step through debugging using an attached picoprobe.
 
-# debugger
+## debugger
 
-Project expects a pico-probe connected to the container.
+The container expects a pico-probe is connected at these paths in [devcontainer.json](https://github.com/MrAndMrsCat/PicoRust/blob/main/.devcontainer/devcontainer.json), or the container will fail to run.
 
-# Windows WSL
+```
+"runArgs": ["--device=/dev/bus/usb", "--device=/dev/ttyACM0"]
+```
 
-To attach the pico-probe / usb debugger to the WSL environment, open powershell and list the devices with 
+### Windows WSL
+
+On windows another step is to attach the pico-probe / usb debugger to WSL, open powershell and list the devices with:
 
 `usbipd wsl list`
 
-the probe should be in the list, like so:
+the probe should be listed:
 
 ```
 BUSID  VID:PID    DEVICE                                                        STATE
@@ -24,6 +28,26 @@ BUSID  VID:PID    DEVICE                                                        
 4-4    0781:5571  USB Mass Storage Device                                       Not attached
 ```
 
-use the BUSID to attach
+use the BUSID to attach.
 
 `usbipd wsl attach --busid 4-2`
+
+### Other probes / targets
+
+Asides from different dependancies in the Dockerfile, changes will probably be required in [tasks.json](https://github.com/MrAndMrsCat/PicoRust/blob/main/.vscode/tasks.json) e.g. config for the picoprobe here:
+
+```
+"type": "shell",
+"label": "Start-OpenOCD",
+"command": "openocd",
+"args": [
+    "-f", "interface/cmsis-dap.cfg",
+    "-f", "target/rp2040.cfg",
+    "-s", "tcl",
+    "-c", "adapter speed 5000"
+],
+```
+
+## Acknowledgements 
+
+[The Relational Technologist - getting-started-with-rust-on-a-raspberry](https://reltech.substack.com/p/getting-started-with-rust-on-a-raspberry)

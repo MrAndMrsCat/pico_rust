@@ -1,1 +1,1 @@
-docker build -t pico-rust-dev-env:master -f Dockerfile ../.
+docker build -t pico-rust-dev-env:amd-x64 -f Dockerfile ../.

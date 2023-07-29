@@ -7,18 +7,15 @@
         {
             "name": "pico-embassy",
             "request": "launch",
-            "type": "cortex-debug",
-
-            // "cwd": "${workspaceRoot}/rp2040-template",
-            // "executable": "${workspaceFolder}/rp2040-template/target/thumbv6m-none-eabi/debug/rp2040-project-template",
-
-            
+            "type": "cortex-debug",            
             "cwd": "${workspaceRoot}/template",
             "executable": "${workspaceFolder}/template/target/thumbv6m-none-eabi/debug/pico-rust",
 
 
+            // "preLaunchTask": "Build binary",
+            "preLaunchTask": "Start-OpenOCD",
 
-            "preLaunchTask": "Build binary",
+
             "servertype": "external",
             // This may need to be gdb-multiarch depending on your system (i.e. Linux vs Mac)
             "gdbPath": "arm-none-eabi-gdb",
@@ -33,18 +30,13 @@
                 "monitor reset init",
                 "monitor halt",
             ],
-
-
-            // just trying to get debugger working, remove this:
-            "showDevDebugOutput" : "raw",
-
-
-            
             // Work around for stopping at main on restart
             "postRestartCommands": [
                 "break main",
                 "continue"
             ],
+                        // // just trying to get debugger working, remove this:
+            // "showDevDebugOutput" : "raw",
         }
     ]
 }

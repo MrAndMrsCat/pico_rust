@@ -1,8 +1,7 @@
 {
 	"name": "pico-rust",
-	// "image": "mcr.microsoft.com/devcontainers/base:jammy",
+	// "image": "pico-rust-dev-env:amd-x64",
 	"build": {
-        // Path is relataive to the devcontainer.json file.
         "dockerfile": "../docker/Dockerfile"
     },
 	"customizations": {
@@ -17,7 +16,5 @@
 			]
 		}
 	},
-	"runArgs": ["--device=/dev/bus/usb", "--device=/dev/ttyACM0"],
-	// "forwardPorts": [3333]
-	// "remoteUser": "root"
+	"runArgs": ["--device=/dev/bus/usb", "--device=/dev/ttyACM0"]
 }

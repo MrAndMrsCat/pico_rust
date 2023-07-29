@@ -1,0 +1,1 @@
+docker build --no-cache -t pico-rust-dev-env:amd-x64 -f Dockerfile ../.
