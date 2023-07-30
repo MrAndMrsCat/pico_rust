@@ -48,6 +48,14 @@ Asides from different dependancies in the Dockerfile, changes will probably be r
 ],
 ```
 
+## App
+
+The application source files are under [app/src](https://github.com/MrAndMrsCat/PicoRust/tree/main/app/src) with the entry point [app/src/main.rs](https://github.com/MrAndMrsCat/PicoRust/tree/main/app/src/main.rs).
+
+### Logging
+
+The [defmt](https://github.com/knurling-rs/defmt) stream can be opened with [print_defmt.sh](https://github.com/MrAndMrsCat/PicoRust/tree/main/print_defmt.sh).
+
 ## Acknowledgements 
 
 [The Relational Technologist - getting-started-with-rust-on-a-raspberry](https://reltech.substack.com/p/getting-started-with-rust-on-a-raspberry)

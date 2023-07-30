@@ -1,9 +1,8 @@
-FROM ubuntu AS base
-
+FROM ubuntu
 
 # [utilities]
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    git curl ca-certificates usbutils minicom nano
+    git curl ca-certificates usbutils minicom nano netcat
 
 
 # [debugger] - need a special raspberry pi build of open OCD (on chip debugger) 
@@ -47,4 +46,7 @@ RUN rustup install nightly && rustup default nightly
 
 RUN rustup target install thumbv6m-none-eabi \
     && cargo install flip-link \
-    && cargo install probe-run
+    && cargo install probe-run \
+    && cargo install defmt-print \
+    && cargo install cargo-binutils \
+    && rustup component add llvm-tools-preview

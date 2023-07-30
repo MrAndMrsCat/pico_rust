@@ -5,7 +5,7 @@
             "label": "Cargo build",
             "type": "shell",
             "options": {
-                "cwd": "${workspaceRoot}/template",
+                "cwd": "${workspaceRoot}/app",
             },
             "command": "cargo",
             "args": [
@@ -20,7 +20,7 @@
             "label": "Build binary",
             "type": "shell",
             "options": {
-                "cwd": "${workspaceRoot}/template",
+                "cwd": "${workspaceRoot}/app",
             },
             "command": "arm-none-eabi-objcopy",
             "args": [

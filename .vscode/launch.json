@@ -5,11 +5,11 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "pico-embassy",
+            "name": "build and debug",
             "request": "launch",
             "type": "cortex-debug",            
-            "cwd": "${workspaceRoot}/template",
-            "executable": "${workspaceFolder}/template/target/thumbv6m-none-eabi/debug/pico-rust",
+            "cwd": "${workspaceRoot}/app",
+            "executable": "${workspaceFolder}/app/target/thumbv6m-none-eabi/debug/pico-rust",
 
 
             // "preLaunchTask": "Build binary",
@@ -21,21 +21,35 @@
             "gdbPath": "arm-none-eabi-gdb",
             // Connect to an already running OpenOCD instance
             "gdbTarget": "localhost:3333",
+
             // If you have the Pico SDK installed, allows the
             // display of the RP2040 CPU registers in VS Code
-            "svdFile": "${env:PICO_SDK_PATH}/src/rp2040/hardware_regs/rp2040.svd",
-            "runToEntryPoint": "main",
+            "svdFile": "${workspaceRoot}/firmware/rp2040.svd",
+            // "runToEntryPoint": "main",
             "preLaunchCommands": [
                 "monitor init",
                 "monitor reset init",
                 "monitor halt",
             ],
+
+
+            // for forwarding log messages back to IDE (NOTE requires openOCD 0.11.0+)
+            // see https://ferrous-systems.com/blog/gdb-and-defmt/
+            "postLaunchCommands": [
+                "monitor rtt server start 8765 0",
+                // should span the *right* part of RAM
+                "monitor rtt setup 0x20000000 0x30 \"SEGGER RTT\"",
+                "monitor rtt start",
+            ],
+
             // Work around for stopping at main on restart
             "postRestartCommands": [
                 "break main",
                 "continue"
             ],
-                        // // just trying to get debugger working, remove this:
+            
+
+            // just trying to get debugger working, remove this:
             // "showDevDebugOutput" : "raw",
         }
     ]
