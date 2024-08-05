@@ -2,13 +2,15 @@ FROM ubuntu
 
 # [utilities]
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    git curl ca-certificates usbutils minicom nano netcat
+    git curl ca-certificates usbutils minicom nano 
+    # netcat
 
 
 # [debugger] - need a special raspberry pi build of open OCD (on chip debugger) 
 RUN apt-get install -y --no-install-recommends \
     gdb-multiarch \
-    pkg-config automake autoconf build-essential texinfo libtool libftdi-dev libusb-1.0-0-dev libudev-dev libncurses5
+    pkg-config automake autoconf build-essential texinfo libtool libftdi-dev libusb-1.0-0-dev libudev-dev
+    # libncurses5
 
 RUN git clone https://github.com/raspberrypi/openocd.git --branch picoprobe --depth=1 \
     && cd openocd \
@@ -42,7 +44,7 @@ RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
 ENV PATH="/root/.cargo/bin:${PATH}"
 
 # use nightly rustc as embedded-hal-async v0.2.0-alpha.2 is not in the stable channel yet..
-RUN rustup install nightly && rustup default nightly
+# RUN rustup install nightly && rustup default nightly
 
 RUN rustup target install thumbv6m-none-eabi \
     && cargo install flip-link \

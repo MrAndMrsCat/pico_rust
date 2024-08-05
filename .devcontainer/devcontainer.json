@@ -1,9 +1,9 @@
 {
 	"name": "pico-rust",
-	"image": "ghcr.io/mrandmrscat/pico-rust-dev-env:amd-x64",
-	// "build": {
-    //     "dockerfile": "../docker/Dockerfile"
-    // },
+	// "image": "ghcr.io/mrandmrscat/pico-rust-dev-env:amd-x64",
+	"build": {
+        "dockerfile": "../docker/Dockerfile"
+    },
 	"customizations": {
 		"vscode": {
 			"extensions": [
